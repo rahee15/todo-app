@@ -1,7 +1,10 @@
 from flask import Flask
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
+from config import Config
 from flask_restx import Api
+from routes.auth_routes import api as auth_api
+from routes.item_routes import item_ns as item_api
 
 #Initialize MongoDB database instance
 db = MongoEngine()
@@ -19,6 +22,8 @@ authorizations = {
 class FlaskApp:
     def __init__(self):
         self.app = Flask(__name__)
+        self.app.config.from_object(Config)  # Load configuration from Config class
+        db.init_app(self.app)  # Initialize MongoDB with the Flask application
 
         #Initialize Flask-RestX API with Swagger settings
         self.api = Api(self.app,
@@ -34,7 +39,8 @@ class FlaskApp:
 
     # Add namespaces (blueprints) to the API instance
     def register_routes(self):
-        print("Implement Routes")
+        self.api.add_namespace(auth_api)
+        self.api.add_namespace(item_api)
 
     # Print all accessible routes within the Flask application
     def print_routes(self):
@@ -44,7 +50,7 @@ class FlaskApp:
         print("Routes printed")
 
     def run(self):
-        self.app.run()
+        self.app.run(debug=self.app.config['DEBUG'])
 
 if __name__ == '__main__':
     flask_app = FlaskApp()
