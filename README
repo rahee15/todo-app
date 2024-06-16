@@ -1,0 +1,59 @@
+Flask Application to manage a collection of ToDos with MongoDB and JWT Authentication.
+## Features
+
+- User registration and login with JWT-based authentication.
+- CRUD operations for items, each linked to a user.
+- MongoDB schema defined using MongoEngine.
+
+## Project Structure
+
+flask_app/
+│
+├── app.py
+├── config.py
+├── requirements.txt
+├── models/
+│   ├── item.py
+│   └── user.py
+├── routes/
+│   ├── auth_routes.py
+│   └── item_routes.py
+├── services/
+│   ├── auth_service.py
+│   └── item_service.py
+├── utils/
+│   ├── decorators.py
+│   └── validators.py
+└── tests/
+    ├── test_auth.py
+    ├── test_item.py
+    └── test_validation.py
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.7+
+- MongoDB
+- Virtualenv (recommended)
+
+### Installation
+
+1. Clone the repository (git clone <git_repo_link>)
+2. Create and activate a virtual environment
+3. Install the required packages (pip install -r requirements.txt)
+4. Create a .env file in the root directory and add the following environment variables:
+    MONGO_URI=mongodb://localhost:27017/yourDatabaseName
+    MONGO_DB_NAME=yourDatabaseName
+    JWT_SECRET_KEY=your_jwt_secret_key
+    FLASK_DEBUG=true
+
+### Running the Application
+1. Start the MongoDB server, or correct remotely via MONGO_URI
+2. Run the Flask application: python app.py
+   The application will be available at http://localhost:5000.
+
+### API Endpoints
+1. Access http://localhost:5000/swagger/
+Or
+1. Copy content of swagger.json and open on online swagger Editor(https://editor.swagger.io/)
